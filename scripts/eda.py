@@ -20,7 +20,7 @@ def perform_eda(data_path='data/sales_data.csv', output_dir='doc'):
     # 2. Kiểm tra file dữ liệu
     if not os.path.exists(file_path):
         print(f"❌ Không tìm thấy file dữ liệu tại: {file_path}")
-        print("💡 Hãy chạy 'python scripts/data_collection.py' trước!")
+        print("💡 Hãy chạy 'python3 scripts/data_collection.py' trước!")
         return
 
     print("📊 Đang đọc dữ liệu để tiến hành EDA...")
@@ -63,7 +63,7 @@ def perform_eda(data_path='data/sales_data.csv', output_dir='doc'):
     # 5. Vẽ biểu đồ 2: Tổng Doanh số theo Danh mục Sản phẩm (Category)
     plt.figure(figsize=(8, 5))
     category_sales = df.groupby('category')['sales'].sum().reset_index().sort_values(by='sales', ascending=False)
-    sns.barplot(x='category', y='sales', data=category_sales, palette='Blues_d')
+    sns.barplot(x='category', y='sales', data=category_sales, hue='category', palette='Blues_d', legend=False)
     plt.title('Tổng Doanh số theo Danh mục Sản phẩm', fontsize=14, fontweight='bold')
     plt.xlabel('Danh mục sản phẩm', fontsize=12)
     plt.ylabel('Tổng Doanh số ($)', fontsize=12)
@@ -76,7 +76,7 @@ def perform_eda(data_path='data/sales_data.csv', output_dir='doc'):
     # 6. Vẽ biểu đồ 3: Doanh số theo Quốc gia (Country)
     plt.figure(figsize=(10, 5))
     country_sales = df.groupby('country')['sales'].sum().reset_index().sort_values(by='sales', ascending=False)
-    sns.barplot(x='country', y='sales', data=country_sales, palette='Viridis')
+    sns.barplot(x='country', y='sales', data=country_sales, hue='country', palette='viridis', legend=False)
     plt.title('Tổng Doanh số theo Quốc gia Khách hàng', fontsize=14, fontweight='bold')
     plt.xlabel('Quốc gia', fontsize=12)
     plt.ylabel('Tổng Doanh số ($)', fontsize=12)
