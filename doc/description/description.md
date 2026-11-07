@@ -14,6 +14,13 @@ Từ những dữ liệu này, hệ thống sẽ học được các yếu tố 
 
 Mục tiêu chính: Xây dựng một mô hình có khả năng dự đoán doanh số sản phẩm dựa trên các dữ liệu đầu vào.
 
+Đây là bài toán Supervised Learning (Học có giám sát) vì mô hình được huấn luyện bằng dữ liệu lịch sử đã có kết quả doanh số thực tế.
+Cụ thể, dự án thuộc nhóm Regression (Hồi quy) vì mục tiêu là dự đoán một giá trị số liên tục hoặc số lượng sản phẩm bán ra, thay vì phân loại dữ liệu thành các nhóm.
+
+Input(X): Giá sản phẩm, danh mục, thông tin khách hàng, thời gian, quảng cáo...
+Output(Y): Số lượng sản phẩm bán ra
+Goal: Dự đoán số lượng sản phẩm bán ra trong tương lai
+
 2. WHY – Tại sao cần thực hiện dự án này?
 
 Trong kinh doanh thương mại điện tử, việc dự đoán doanh số đóng vai trò quan trọng vì doanh nghiệp thường gặp khó khăn trong việc xác định nhu cầu mua sắm của khách hàng.
@@ -31,6 +38,15 @@ Giảm thiểu tình trạng thiếu hàng hoặc dư thừa hàng hóa.
 Hỗ trợ lập kế hoạch quảng cáo và tiếp thị.
 Phân tích những yếu tố ảnh hưởng đến doanh số.
 Hỗ trợ doanh nghiệp đưa ra quyết định kinh doanh dựa trên dữ liệu.
+
+So với phương pháp dự đoán thủ công dựa trên kinh nghiệm, Machine Learning có khả năng phân tích lượng lớn dữ liệu và tìm ra các mối quan hệ giữa những yếu tố ảnh hưởng đến doanh số.
+
+Thông qua quá trình huấn luyện, mô hình có thể:
+Nhận biết xu hướng mua sắm của khách hàng.
+Phân tích mức độ ảnh hưởng của giá bán và chương trình khuyến mãi.
+Phát hiện các yếu tố có mối quan hệ với sự thay đổi doanh số.
+Đưa ra dự đoán dựa trên dữ liệu thay vì chỉ dựa vào cảm tính.
+
 3. WHEN – Khi nào cần sử dụng mô hình?
 
 Mô hình dự đoán doanh số có thể được sử dụng trong nhiều tình huống kinh doanh khác nhau, chẳng hạn như:
@@ -42,6 +58,12 @@ Khi lập kế hoạch kinh doanh: Dự đoán doanh số để hỗ trợ xây 
 Khi ra mắt sản phẩm mới: Sử dụng những thông tin và dữ liệu liên quan để hỗ trợ ước tính nhu cầu thị trường nếu có đủ dữ liệu phù hợp.
 Nhìn chung, mô hình có thể được sử dụng bất cứ khi nào doanh nghiệp cần ước tính doanh số trong tương lai để chuẩn bị kế hoạch kinh doanh.
 
+Mô hình hướng đến việc hỗ trợ các đối tượng trong hoạt động kinh doanh như:
+Nhà quản lý: Theo dõi và dự đoán tình hình kinh doanh.
+Nhân viên quản lý kho: Ước tính nhu cầu hàng hóa để lập kế hoạch nhập hàng.
+Bộ phận Marketing: Đánh giá và lập kế hoạch cho các chiến dịch quảng cáo.
+Chủ cửa hàng: Xác định những sản phẩm có nhu cầu cao để xây dựng chiến lược bán hàng.
+
 4. HOW – Dự án sẽ được thực hiện như thế nào?
 
 Dự án sẽ được triển khai thông qua các bước chính sau:
@@ -51,6 +73,12 @@ Bước 1: Thu thập dữ liệu (Data Collection)
 Tìm kiếm và thu thập bộ dữ liệu bán hàng từ các nguồn phù hợp như Kaggle.
 
 Dữ liệu cần bao gồm thông tin sản phẩm, khách hàng, lịch sử mua hàng, hoạt động quảng cáo và doanh số thực tế.
+
+Ngoài việc tìm kiếm dữ liệu trên Kaggle, nhóm cần xác định các tiêu chí lựa chọn dataset:
+Dữ liệu có nguồn gốc rõ ràng.
+Có biến mục tiêu là số lượng sản phẩm bán ra.
+Có các thuộc tính liên quan đến sản phẩm, giá bán và thời gian.
+Có đủ số lượng bản ghi để phục vụ huấn luyện và kiểm tra mô hình.
 
 Bước 2: Tiền xử lý dữ liệu (Data Preparation)
 
@@ -87,6 +115,13 @@ MSE (Mean Squared Error).
 MAE (Mean Absolute Error).
 RMSE (Root Mean Squared Error).
 So sánh kết quả giữa các mô hình để lựa chọn mô hình phù hợp nhất.
+
+Sử dụng các biểu đồ để thể hiện kết quả phân tích và đánh giá mô hình:
+Biểu đồ phân phối số lượng sản phẩm bán ra.
+Biểu đồ thể hiện mối quan hệ giữa giá bán và số lượng sản phẩm bán ra.
+Biểu đồ so sánh doanh số thực tế và doanh số dự đoán.
+Biểu đồ so sánh hiệu suất giữa các mô hình.
+Biểu đồ thể hiện mức độ quan trọng của các đặc trưng (Feature Importance) đối với những mô hình hỗ trợ.
 
 Bước 7: Triển khai mô hình (Model Deployment)
 
