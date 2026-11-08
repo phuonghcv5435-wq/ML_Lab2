@@ -38,6 +38,8 @@ The source rows contain product, customer, price, quantity, date, demographics a
 ```bash
 python scripts/data_collection.py
 
+```
+
 ## 📁 4. Dữ liệu sau khi xử lý
 Sau khi xử lý dữ liệu, nhóm lưu các file kết quả trong thư mục data/processed/
 
