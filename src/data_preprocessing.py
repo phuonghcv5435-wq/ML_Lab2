@@ -2,20 +2,25 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-def preprocess_data(input_path='data/sales_data.csv', output_dir='data'):
+def preprocess_data(input_path='data/raw/sales_data.csv', output_dir='data/processed'):
     """
     Tiền xử lý dữ liệu: Làm sạch, mã hóa biến phân loại và chia tập dữ liệu Train/Test.
+    Lưu kết quả vào thư mục data/processed/
     """
     # 1. Xác định đường dẫn tương đối chuẩn của dự án
-    current_script_dir = os.path.dirname(os.path.abspath(__file__)) # scripts/
+    current_script_dir = os.path.dirname(os.path.abspath(__file__)) # src/
     project_root = os.path.dirname(current_script_dir)            # ML_Lab2/
     
     file_path = os.path.join(project_root, input_path)
     target_dir = os.path.join(project_root, output_dir)
     
+    # Tạo thư mục output_dir (data/processed/) nếu chưa tồn tại
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+
     if not os.path.exists(file_path):
         print(f"❌ Không tìm thấy file dữ liệu tại: {file_path}")
-        print("💡 Hãy chạy 'python3 scripts/data_collection.py' trước!")
+        print("💡 Hãy chạy 'python3 src/data_collection.py' trước!")
         return
 
     print("🔄 Đang đọc và tiến hành tiền xử lý dữ liệu...")
@@ -42,7 +47,7 @@ def preprocess_data(input_path='data/sales_data.csv', output_dir='data'):
     # 6. Chia tập Train (80%) và Test (20%)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # 7. Lưu kết quả ra các file dữ liệu sạch vào thư mục data/
+    # 7. Lưu kết quả ra các file dữ liệu sạch vào thư mục data/processed/
     X_train.to_csv(os.path.join(target_dir, 'X_train.csv'), index=False)
     X_test.to_csv(os.path.join(target_dir, 'X_test.csv'), index=False)
     y_train.to_csv(os.path.join(target_dir, 'y_train.csv'), index=False)
@@ -55,4 +60,3 @@ def preprocess_data(input_path='data/sales_data.csv', output_dir='data'):
 
 if __name__ == "__main__":
     preprocess_data()
-

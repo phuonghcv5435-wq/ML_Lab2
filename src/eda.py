@@ -3,12 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def perform_eda(data_path='data/sales_data.csv', output_dir='doc'):
+# SỬA: Đọc dữ liệu từ 'data/raw/sales_data.csv' và xuất biểu đồ ra thư mục 'figures'
+def perform_eda(data_path='data/raw/sales_data.csv', output_dir='figures'):
     """
-    Thực hiện Phân tích Khám phá Dữ liệu (EDA) và xuất các biểu đồ phân tích.
+    Thực hiện Phân tích Khám phá Dữ liệu (EDA) và xuất các biểu đồ phân tích vào thư mục figures/
     """
     # 1. Xác định đường dẫn tương đối chuẩn của dự án
-    current_script_dir = os.path.dirname(os.path.abspath(__file__)) # scripts/
+    current_script_dir = os.path.dirname(os.path.abspath(__file__)) # src/
     project_root = os.path.dirname(current_script_dir)            # Thư mục gốc dự án
     
     file_path = os.path.join(project_root, data_path)
@@ -20,7 +21,7 @@ def perform_eda(data_path='data/sales_data.csv', output_dir='doc'):
     # 2. Kiểm tra file dữ liệu
     if not os.path.exists(file_path):
         print(f"❌ Không tìm thấy file dữ liệu tại: {file_path}")
-        print("💡 Hãy chạy 'python3 scripts/data_collection.py' trước!")
+        print("💡 Hãy chạy 'python3 src/data_collection.py' trước!")
         return
 
     print("📊 Đang đọc dữ liệu để tiến hành EDA...")
@@ -97,7 +98,7 @@ def perform_eda(data_path='data/sales_data.csv', output_dir='doc'):
     plt.close()
     print(f"✅ Đã xuất biểu đồ 4: {plot4_path}")
 
-    print("\n🎉 Hoàn thành Phân tích EDA! Tất cả biểu đồ đã được lưu tại thư mục doc/")
+    print("\n🎉 Hoàn thành Phân tích EDA! Tất cả biểu đồ đã được lưu tại thư mục figures/")
 
 if __name__ == "__main__":
     perform_eda()

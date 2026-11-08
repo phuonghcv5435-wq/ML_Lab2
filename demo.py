@@ -6,22 +6,27 @@ def run_demo():
     """
     Giả lập dự đoán doanh số cho một đơn hàng mới sử dụng mô hình đã huấn luyện.
     """
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(current_dir)
+    # Vì demo.py nằm ở thư mục gốc nên current_dir chính là project_root
+    project_root = os.path.dirname(os.path.abspath(__file__))
     
-    # 1. Đường dẫn mô hình (dùng RandomForest hoặc mô hình tốt nhất từ step eval)
-    model_path = os.path.join(project_root, 'model', 'RandomForest.pkl')
-    x_train_fe_path = os.path.join(project_root, 'data', 'X_train_fe.csv')
+    # 1. Đường dẫn mô hình và file dữ liệu mẫu đã cập nhật theo cấu trúc mới
+    model_path = os.path.join(project_root, 'models', 'RandomForest.pkl')
+    x_train_fe_path = os.path.join(project_root, 'data', 'processed', 'X_train_fe.csv')
 
     if not os.path.exists(model_path):
-        print("❌ Không tìm thấy file mô hình! Hãy chắc chắn đã chạy 'python3 scripts/training.py'")
+        print("❌ Không tìm thấy file mô hình! Hãy chắc chắn đã chạy 'python3 src/training.py'")
         return
 
-    # 2. Tải mô hình đã lưu
-    print("🤖 Đang tải mô hình RandomForest từ thư mục model/...")
+    # 2. Tải mô hình đã lưu từ thư mục models/
+    print("🤖 Đang tải mô hình RandomForest từ thư mục models/...")
     model = joblib.load(model_path)
 
-    # 3. Đọc đúng cấu trúc cột đặc trưng từ X_train_fe.csv
+    # 3. Đọc đúng cấu trúc cột đặc trưng từ data/processed/X_train_fe.csv
+    if not os.path.exists(x_train_fe_path):
+        print(f"❌ Không tìm thấy file cấu trúc cột tại: {x_train_fe_path}")
+        print("💡 Hãy chạy 'python3 src/feature_engineering.py' trước!")
+        return
+
     feature_names = pd.read_csv(x_train_fe_path, nrows=1).columns.tolist()
 
     # 4. Tạo dữ liệu đầu vào mẫu (Một đơn hàng mới)

@@ -3,17 +3,23 @@ import pandas as pd
 import joblib
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-def evaluate_models():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(current_dir)
+# SỬA: Đọc dữ liệu từ 'data/processed' và load mô hình từ 'models'
+def evaluate_models(data_dir='data/processed', model_dir='models'):
+    current_dir = os.path.dirname(os.path.abspath(__file__)) # src/
+    project_root = os.path.dirname(current_dir)            # ML_Lab2/
     
-    data_folder = os.path.join(project_root, 'data')
-    model_folder = os.path.join(project_root, 'model')
+    data_folder = os.path.join(project_root, data_dir)
+    model_folder = os.path.join(project_root, model_dir)
     
-    # 1. Đọc dữ liệu kiểm thử (Test)
+    # 1. Đọc dữ liệu kiểm thử (Test) từ data/processed/
     X_test_path = os.path.join(data_folder, 'X_test_fe.csv')
     y_test_path = os.path.join(data_folder, 'y_test.csv')
     
+    if not os.path.exists(X_test_path) or not os.path.exists(y_test_path):
+        print(f"❌ Không tìm thấy dữ liệu kiểm thử tại: {data_folder}")
+        print("💡 Hãy chạy 'python3 src/feature_engineering.py' trước!")
+        return
+
     X_test = pd.read_csv(X_test_path)
     y_test = pd.read_csv(y_test_path).values.ravel()
     
@@ -28,7 +34,7 @@ def evaluate_models():
     for name in model_names:
         model_path = os.path.join(model_folder, f'{name}.pkl')
         if os.path.exists(model_path):
-            # Load mô hình từ file .pkl
+            # Load mô hình từ file .pkl trong models/
             model = joblib.load(model_path)
             y_pred = model.predict(X_test)
             
@@ -42,10 +48,13 @@ def evaluate_models():
                 'MSE': round(mse, 2),
                 'R2 Score': round(r2, 4)
             })
-    
-    results_df = pd.DataFrame(results)
-    print(results_df.to_string(index=False))
-    print("="*60)
+        else:
+            print(f"⚠️ Không tìm thấy file mô hình tại: {model_path}")
+
+    if results:
+        results_df = pd.DataFrame(results)
+        print(results_df.to_string(index=False))
+        print("="*60)
 
 if __name__ == "__main__":
     evaluate_models()

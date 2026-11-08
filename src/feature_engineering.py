@@ -40,22 +40,23 @@ def add_custom_features(df):
 
     return data
 
-def engineer_features(input_dir='data', output_dir='data'):
+# SỬA: Thay mặc định input_dir và output_dir từ 'data' sang 'data/processed'
+def engineer_features(input_dir='data/processed', output_dir='data/processed'):
     """
-    Hàm thực thi chính: Đọc file X_train/X_test, tạo đặc trưng và lưu đè ra file mới.
+    Hàm thực thi chính: Đọc file X_train/X_test từ data/processed/, tạo đặc trưng và lưu X_train_fe/X_test_fe vào data/processed/.
     """
     # 1. Định vị đường dẫn động để tránh lỗi máy khác nhau
-    current_script_dir = os.path.dirname(os.path.abspath(__file__)) # Thư mục scripts/
+    current_script_dir = os.path.dirname(os.path.abspath(__file__)) # Thư mục src/
     project_root = os.path.dirname(current_script_dir)             # Thư mục gốc dự án
     
     data_folder = os.path.join(project_root, input_dir)
     x_train_path = os.path.join(data_folder, 'X_train.csv')
     x_test_path = os.path.join(data_folder, 'X_test.csv')
     
-    # 2. Kiểm tra xem Task 4 đã chạy ra dữ liệu chưa
+    # 2. Kiểm tra xem Task tiền xử lý đã chạy ra dữ liệu chưa
     if not os.path.exists(x_train_path) or not os.path.exists(x_test_path):
         print(f"❌ LỖI: Không tìm thấy X_train.csv hoặc X_test.csv tại thư mục: {data_folder}")
-        print("💡 Hãy báo người làm Task 4 chạy file 'data_preprocessing.py' trước!")
+        print("💡 Hãy chạy file 'src/data_preprocessing.py' trước!")
         return
 
     print("🚀 Đang tiến hành tạo đặc trưng mới (Feature Engineering)...")
@@ -68,7 +69,7 @@ def engineer_features(input_dir='data', output_dir='data'):
     X_train_fe = add_custom_features(X_train)
     X_test_fe = add_custom_features(X_test)
     
-    # 5. Lưu ra các file đầu ra (chữ 'fe' có nghĩa là Feature Engineered)
+    # 5. Lưu ra các file đầu ra tại data/processed/ (chữ 'fe' có nghĩa là Feature Engineered)
     out_train_path = os.path.join(project_root, output_dir, 'X_train_fe.csv')
     out_test_path = os.path.join(project_root, output_dir, 'X_test_fe.csv')
     

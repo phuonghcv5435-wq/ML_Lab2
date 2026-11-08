@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-def collect_data(source_path='sales_data.csv', output_dir='data', output_file='sales_data.csv'):
+def collect_data(source_path='data/raw/sales_data.csv', output_dir='data/raw', output_file='sales_data.csv'):
     """
     Thu thập và lưu trữ tập dữ liệu thô (Raw Data) vào thư mục data/
     """
