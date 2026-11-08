@@ -37,3 +37,16 @@ The source rows contain product, customer, price, quantity, date, demographics a
 
 ```bash
 python scripts/data_collection.py
+
+## 📁 4. Dữ liệu sau khi xử lý
+Sau khi xử lý dữ liệu, nhóm lưu các file kết quả trong thư mục data/processed/
+
+Các file trong thư mục này gồm:
+
+- `sales_cleaned.csv`: File dữ liệu sau khi làm sạch
+- `X_train.csv`: Dữ liệu dùng để huấn luyện mô hình
+- `X_test.csv`: Dữ liệu dùng để kiểm tra mô hình
+- `y_train.csv`: Kết quả cần dự đoán của tập huấn luyện
+- `y_test.csv`: Kết quả cần dự đoán của tập kiểm tra
+- `X_train_fe.csv`: Dữ liệu huấn luyện sau khi tạo thêm đặc trưng
+- `X_test_fe.csv`: Dữ liệu kiểm tra sau khi tạo thêm đặc trưng
