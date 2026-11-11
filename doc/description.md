@@ -3,23 +3,24 @@ DỰ ĐOÁN DOANH SỐ SẢN PHẨM (PRODUCT SALES PREDICTION)
 
 Dự án này tập trung xây dựng một mô hình dự đoán doanh số bán sản phẩm bằng cách sử dụng các kỹ thuật Học máy (Machine Learning).
 
-Cụ thể, dự án sử dụng dữ liệu bán hàng trong quá khứ cùng với các thông tin liên quan như:
+Dữ liệu thực tế đi kèm dự án có 500 giao dịch từ ngày 01/01/2022 đến 31/12/2022, với các trường:
 
-Thông tin sản phẩm: tên sản phẩm, danh mục và giá bán.
-Thông tin khách hàng: độ tuổi, giới tính và khu vực sinh sống.
-Lịch sử mua hàng: số lần mua và tần suất mua hàng.
-Hoạt động tiếp thị: chiến dịch quảng cáo và chi phí quảng cáo.
-Thông tin thời gian: mùa vụ, ngày lễ và các dịp khuyến mãi.
-Từ những dữ liệu này, hệ thống sẽ học được các yếu tố ảnh hưởng đến doanh số và đưa ra dự đoán về số lượng sản phẩm có thể bán được.
+Thông tin sản phẩm: mã sản phẩm, tên sản phẩm, danh mục và đơn giá.
+Thông tin khách hàng: mã khách hàng, độ tuổi, giới tính và quốc gia.
+Giao dịch: ngày đặt hàng và số lượng mua (chỉ dùng để tính biến mục tiêu).
+Thông tin thời gian: tháng, quý, thứ trong tuần và mùa mua sắm được suy ra từ ngày giao dịch.
+
+Đề bài có nêu marketing campaign/ad spend, review/rating và holiday information, nhưng các trường này không có trong file dữ liệu hiện tại nên không được tự tạo hoặc giả định.
+Từ những dữ liệu này, hệ thống sẽ học được các yếu tố ảnh hưởng đến doanh số và đưa ra dự đoán về doanh thu giao dịch của sản phẩm (sales).
 
 Mục tiêu chính: Xây dựng một mô hình có khả năng dự đoán doanh số sản phẩm dựa trên các dữ liệu đầu vào.
 
 Đây là bài toán Supervised Learning (Học có giám sát) vì mô hình được huấn luyện bằng dữ liệu lịch sử đã có kết quả doanh số thực tế.
-Cụ thể, dự án thuộc nhóm Regression (Hồi quy) vì mục tiêu là dự đoán một giá trị số liên tục hoặc số lượng sản phẩm bán ra, thay vì phân loại dữ liệu thành các nhóm.
+Cụ thể, dự án thuộc nhóm Regression (Hồi quy) vì mục tiêu là dự đoán một giá trị số liên tục là doanh thu giao dịch (`sales`), thay vì phân loại dữ liệu thành các nhóm.
 
-Input(X): Giá sản phẩm, danh mục, thông tin khách hàng, thời gian, quảng cáo...
-Output(Y): Số lượng sản phẩm bán ra
-Goal: Dự đoán số lượng sản phẩm bán ra trong tương lai
+Input(X): Đơn giá, thông tin sản phẩm/khách hàng, lịch sử giao dịch trước đó và đặc trưng thời gian; không dùng `quantity` vì đây là thành phần tính target.
+Output(Y): Doanh thu giao dịch (`sales = unit_price × quantity`)
+Goal: Dự đoán doanh thu giao dịch sản phẩm (`sales`)
 
 2. WHY – Tại sao cần thực hiện dự án này?
 
@@ -70,13 +71,11 @@ Dự án sẽ được triển khai thông qua các bước chính sau:
 
 Bước 1: Thu thập dữ liệu (Data Collection)
 
-Tìm kiếm và thu thập bộ dữ liệu bán hàng từ các nguồn phù hợp như Kaggle.
-
-Dữ liệu cần bao gồm thông tin sản phẩm, khách hàng, lịch sử mua hàng, hoạt động quảng cáo và doanh số thực tế.
+Nạp và kiểm tra bộ dữ liệu CSV đã được cung cấp trong `data/raw/sales_data.csv`. Tài liệu `data/README.md` ghi lại nguồn dữ liệu và các cột thực tế. Dữ liệu hiện tại không có trường chi phí quảng cáo hoặc thông tin rating/review.
 
 Ngoài việc tìm kiếm dữ liệu trên Kaggle, nhóm cần xác định các tiêu chí lựa chọn dataset:
 Dữ liệu có nguồn gốc rõ ràng.
-Có biến mục tiêu là số lượng sản phẩm bán ra.
+Có thể xác định biến mục tiêu doanh thu giao dịch (`sales`).
 Có các thuộc tính liên quan đến sản phẩm, giá bán và thời gian.
 Có đủ số lượng bản ghi để phục vụ huấn luyện và kiểm tra mô hình.
 
@@ -94,7 +93,7 @@ Xây dựng thêm các đặc trưng có thể hỗ trợ quá trình dự đoá
 Mức độ phổ biến của sản phẩm.
 Tần suất mua hàng của khách hàng.
 Xu hướng doanh số theo mùa.
-Tỷ lệ chi phí quảng cáo.
+Tỷ lệ chi phí quảng cáo (không triển khai được vì dataset hiện tại không có ad spend).
 Bước 4: Lựa chọn mô hình (Model Selection)
 
 Thử nghiệm một số thuật toán Học máy phù hợp với bài toán dự đoán giá trị số:
@@ -117,15 +116,15 @@ RMSE (Root Mean Squared Error).
 So sánh kết quả giữa các mô hình để lựa chọn mô hình phù hợp nhất.
 
 Sử dụng các biểu đồ để thể hiện kết quả phân tích và đánh giá mô hình:
-Biểu đồ phân phối số lượng sản phẩm bán ra.
-Biểu đồ thể hiện mối quan hệ giữa giá bán và số lượng sản phẩm bán ra.
+Biểu đồ phân phối doanh thu giao dịch (`sales`).
+Biểu đồ thể hiện mối quan hệ giữa đơn giá và doanh thu giao dịch.
 Biểu đồ so sánh doanh số thực tế và doanh số dự đoán.
 Biểu đồ so sánh hiệu suất giữa các mô hình.
 Biểu đồ thể hiện mức độ quan trọng của các đặc trưng (Feature Importance) đối với những mô hình hỗ trợ.
 
-Bước 7: Triển khai mô hình (Model Deployment)
+Bước 7: Lưu và sử dụng mô hình (Model Saving and Inference)
 
-Lưu mô hình đã huấn luyện để sử dụng trong việc dự đoán doanh số sản phẩm mới hoặc doanh số trong những khoảng thời gian tiếp theo.
+Lưu pipeline tiền xử lý và mô hình đã huấn luyện để dự đoán doanh thu giao dịch mới. Người dùng chạy dự đoán trực tiếp bằng Python thông qua chương trình `demo.py`.
 
 5. Kết quả mong đợi (Expected Results)
 
@@ -141,3 +140,7 @@ Hỗ trợ doanh nghiệp quản lý hàng tồn kho và lập kế hoạch kinh
 Dự án Dự đoán doanh số sản phẩm ứng dụng Machine Learning nhằm giải quyết vấn đề dự đoán nhu cầu mua sắm trong lĩnh vực thương mại điện tử.
 
 Thông qua việc phân tích dữ liệu lịch sử và xây dựng mô hình dự đoán, dự án hướng đến việc cung cấp thông tin hữu ích giúp doanh nghiệp tối ưu hóa hoạt động kinh doanh và đưa ra quyết định chính xác hơn.
+
+7. Ghi chú về biến mục tiêu và giới hạn dữ liệu
+
+Trong phiên bản hoàn thiện này, biến mục tiêu được thống nhất là `sales = unit_price × quantity` (doanh thu của một giao dịch). Vì `quantity` là thành phần dùng để tính target, cột này được loại khỏi đầu vào mô hình để tránh rò rỉ mục tiêu trực tiếp. Bộ dữ liệu hiện có không cung cấp số lượt đánh giá, rating, chi phí quảng cáo, chiến dịch marketing hoặc cờ ngày lễ; do đó nhóm sử dụng số giao dịch trước đây làm proxy cho độ phổ biến sản phẩm và doanh thu tích lũy trước đây làm proxy cho customer lifetime value. Những giới hạn này được trình bày trong báo cáo kết quả.

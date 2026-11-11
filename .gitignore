@@ -1,24 +1,12 @@
-# Python
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
 .venv/
 venv/
-
-# Jupyter Notebook
+.pytest_cache/
 .ipynb_checkpoints/
-
-# VS Code
 .vscode/
-
-# System files
 .DS_Store
 Thumbs.db
-desktop.ini
-
-# Temporary files
 *.log
 *.tmp
-
-# Environment variables
 .env

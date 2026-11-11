@@ -1,0 +1,41 @@
+{
+  "original_rows": 500,
+  "clean_rows": 500,
+  "rows_removed_during_cleaning": 0,
+  "missing_values_after_cleaning": {
+    "order_id": 0,
+    "customer_id": 0,
+    "product_id": 0,
+    "product_name": 0,
+    "category": 0,
+    "unit_price": 0,
+    "quantity": 0,
+    "order_date": 0,
+    "customer_age": 0,
+    "customer_gender": 0,
+    "country": 0,
+    "sales": 0
+  },
+  "target_definition": "sales = unit_price * quantity",
+  "date_min": "2022-01-01",
+  "date_max": "2022-12-31",
+  "train_rows": 409,
+  "test_rows": 91,
+  "train_max_date": "2022-10-12",
+  "test_min_date": "2022-10-13",
+  "outlier_review_on_predictors": {
+    "unit_price": {
+      "train_outliers_capped": 0,
+      "test_outliers_capped_using_train_bounds": 0,
+      "lower_bound": -369.0,
+      "upper_bound": 1535.0
+    },
+    "customer_age": {
+      "train_outliers_capped": 0,
+      "test_outliers_capped_using_train_bounds": 0,
+      "lower_bound": -9.5,
+      "upper_bound": 90.5
+    }
+  },
+  "quantity_excluded_from_features": true
+}

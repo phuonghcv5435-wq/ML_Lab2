@@ -1,54 +1,52 @@
-# Dataset
+# Dataset (Tập dữ liệu)
 
-sales_data.csv is a sourced subset (first 150 transactions) from the public GitHub Gist summerofgeorge/sales_data.csv, described as a simulated sales dataset.
+Dự án sử dụng tập dữ liệu giao dịch bán hàng `data/raw/sales_data.csv`, gồm **500 dòng dữ liệu**, được cung cấp trong repository ban đầu.
 
-Source: https://gist.github.com/summerofgeorge/33dbb09adbdea670c31ee2c4fc9f2617
+Theo ghi chú của repository gốc, dữ liệu được lấy từ một Gist công khai chứa dữ liệu bán hàng mô phỏng và được cho là bao gồm **150 giao dịch đầu tiên**. Tuy nhiên, file `sales_data.csv` thực tế có trong file ZIP được cung cấp lại chứa **500 dòng dữ liệu**.
 
-The source rows contain product, customer, price, quantity, date, demographics and country. Marketing-spend fields are not present in this source, so the model does not fabricate them.
+Sự khác biệt này được giữ lại như một ghi chú về nguồn gốc dữ liệu. Trong phạm vi dự án, nhóm sử dụng toàn bộ **500 dòng dữ liệu thực tế** có trong file ZIP đã nhận.
 
+**Nguồn dữ liệu được ghi nhận:**  
+[https://gist.github.com/summerofgeorge/33dbb09adbdea670c31ee2c4fc9f2617](https://gist.github.com/summerofgeorge/33dbb09adbdea670c31ee2c4fc9f2617)
 
-## 📌 1. Nguồn gốc & Thu thập dữ liệu (Data Collection)
-- **File dữ liệu thô:** `data/sales_data.csv`
-- **Phương thức thu thập:** Được nạp tự động thông qua script `scripts/data_collection.py`.
-- **Quy mô dữ liệu:** 500 bản ghi giao dịch (rows) và 11 thuộc tính gốc (columns).
+**Khoảng thời gian dữ liệu:** Từ **01/01/2022 đến 31/12/2022**.
 
----
+## Các thuộc tính có trong tập dữ liệu
 
-## 📋 2. Giải thích chi tiết các thuộc tính (Data Dictionary)
+| Tên cột | Ý nghĩa |
+|---|---|
+| `order_id` | Mã định danh giao dịch |
+| `customer_id` | Mã định danh khách hàng |
+| `product_id` | Mã định danh sản phẩm |
+| `product_name` | Tên sản phẩm |
+| `category` | Danh mục sản phẩm |
+| `unit_price` | Đơn giá của sản phẩm |
+| `quantity` | Số lượng sản phẩm được mua; chỉ sử dụng để tính biến mục tiêu, không sử dụng làm đặc trưng đầu vào của mô hình |
+| `order_date` | Ngày thực hiện giao dịch |
+| `customer_age` | Độ tuổi của khách hàng |
+| `customer_gender` | Giới tính khách hàng theo thông tin được cung cấp trong dữ liệu |
+| `country` | Quốc gia của khách hàng |
 
-| Tên cột | Kiểu dữ liệu | Mô tả ý nghĩa | Ví dụ mẫu |
-| :--- | :--- | :--- | :--- |
-| `order_id` | Integer | Mã định danh đơn hàng | `1`, `2` |
-| `customer_id` | Integer | Mã định danh khách hàng | `150`, `176` |
-| `product_id` | Integer | Mã định danh sản phẩm | `9`, `36` |
-| `product_name` | String | Tên sản phẩm | `Tablet`, `Smartphone` |
-| `category` | String | Danh mục sản phẩm (`Electronics`, `Accessories`, `Clothing`) | `Electronics` |
-| `unit_price` | Integer | Đơn giá sản phẩm ($) | `611`, `751` |
-| `quantity` | Integer | Số lượng mua trong đơn hàng | `1`, `4` |
-| `order_date` | String/Date | Ngày thực hiện giao dịch (MM/DD/YYYY) | `11/14/2022` |
-| `customer_age` | Integer | Độ tuổi của khách hàng | `62`, `23` |
-| `customer_gender` | String | Giới tính khách hàng (`Male`, `Female`) | `Female` |
-| `country` | String | Quốc gia khách hàng sinh sống | `Germany`, `Canada` |
+## Biến mục tiêu (Target Variable)
 
----
+Biến mục tiêu được xây dựng bằng cách tính tổng doanh thu của mỗi giao dịch theo công thức:
 
-## 🛠️ 3. Cách chạy script thu thập dữ liệu
-Để tải/chép dữ liệu vào thư mục `data/`, mở terminal và chạy lệnh:
+`sales = unit_price * quantity`
 
-```bash
-python scripts/data_collection.py
+Trong đó:
+- `unit_price`: Đơn giá của sản phẩm.
+- `quantity`: Số lượng sản phẩm được mua.
+- `sales`: Tổng doanh thu của giao dịch.
 
-```
+## Lưu ý về dữ liệu
 
-## 📁 4. Dữ liệu sau khi xử lý
-Sau khi xử lý dữ liệu, nhóm lưu các file kết quả trong thư mục data/processed/
+Tập dữ liệu được cung cấp không có các thuộc tính như:
+- Điểm đánh giá sản phẩm (Ratings).
+- Số lượng đánh giá (Review Counts).
+- Chi phí quảng cáo (Advertising Spend).
+- Mã chiến dịch quảng cáo (Campaign Identifiers).
+- Nhãn sự kiện hoặc ngày lễ cụ thể (Holiday/Event Labels).
 
-Các file trong thư mục này gồm:
+Do đó, trong phạm vi dự án, nhóm sử dụng **số lượng giao dịch và doanh thu trong quá khứ** làm các chỉ số đại diện (Proxies) để đánh giá mức độ phổ biến của sản phẩm và giá trị khách hàng.
 
-- `sales_cleaned.csv`: File dữ liệu sau khi làm sạch
-- `X_train.csv`: Dữ liệu dùng để huấn luyện mô hình
-- `X_test.csv`: Dữ liệu dùng để kiểm tra mô hình
-- `y_train.csv`: Kết quả cần dự đoán của tập huấn luyện
-- `y_test.csv`: Kết quả cần dự đoán của tập kiểm tra
-- `X_train_fe.csv`: Dữ liệu huấn luyện sau khi tạo thêm đặc trưng
-- `X_test_fe.csv`: Dữ liệu kiểm tra sau khi tạo thêm đặc trưng
+Cách tiếp cận này giúp nhóm khai thác những thông tin thực tế có sẵn trong dữ liệu mà không tự giả định hoặc bổ sung các thuộc tính không tồn tại.
