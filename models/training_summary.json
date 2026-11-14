@@ -1,0 +1,19 @@
+{
+  "best_model": "RandomForest",
+  "selection_basis": "lowest time-series CV MAE",
+  "best_model_test_metrics": {
+    "model": "RandomForest",
+    "MAE": 648.8198162534475,
+    "MSE": 649599.43518079,
+    "RMSE": 805.9773167904851,
+    "R2": 0.2856594412479474,
+    "CV_MAE": 611.9466083545329
+  },
+  "models_compared": [
+    "LinearRegression",
+    "DecisionTree",
+    "RandomForest",
+    "GradientBoosting",
+    "DummyMean"
+  ]
+}

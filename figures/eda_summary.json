@@ -1,0 +1,27 @@
+[
+  {
+    "rows":500,
+    "columns":12,
+    "missing_values":{
+      "order_id":0,
+      "customer_id":0,
+      "product_id":0,
+      "product_name":0,
+      "category":0,
+      "unit_price":0,
+      "quantity":0,
+      "order_date":0,
+      "customer_age":0,
+      "customer_gender":0,
+      "country":0,
+      "sales":0
+    },
+    "duplicate_rows":0,
+    "sales_mean":1463.58,
+    "sales_median":1262.0,
+    "sales_min":51.0,
+    "sales_max":3968.0,
+    "date_min":"2022-01-01",
+    "date_max":"2022-12-31"
+  }
+]
