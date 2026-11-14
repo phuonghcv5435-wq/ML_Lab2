@@ -27,17 +27,6 @@ Sự khác biệt này được giữ lại như một ghi chú về nguồn g�
 | `customer_gender` | Giới tính khách hàng theo thông tin được cung cấp trong dữ liệu |
 | `country` | Quốc gia của khách hàng |
 
-## Biến mục tiêu (Target Variable)
-
-Biến mục tiêu được xây dựng bằng cách tính tổng doanh thu của mỗi giao dịch theo công thức:
-
-`sales = unit_price * quantity`
-
-Trong đó:
-- `unit_price`: Đơn giá của sản phẩm.
-- `quantity`: Số lượng sản phẩm được mua.
-- `sales`: Tổng doanh thu của giao dịch.
-
 ## Lưu ý về dữ liệu
 
 Tập dữ liệu được cung cấp không có các thuộc tính như:
